@@ -1,7 +1,8 @@
 public class Main {
     public static void main(String[] args) {
-        //создание массива и выввод сотрудников старше 40ка
+        //создание массива, добавление работников в него
         Employee[] employees=new Employee[5];
+
         employees[0]=new Employee("sokolnik", "artem", "artemovich","ceo","123@yandex.ru",
                 +89120000, 100500, 55);
         employees[1]=new Employee("selov", "ignat", "olegivic","it специалист","222@yandex.ru",
@@ -12,6 +13,8 @@ public class Main {
                 +89124444, 50000, 60);
         employees[4]=new Employee("ivanov", "ivan", "ivanovhich","менеджер","555@yandex.ru",
                 +89125555, 40000, 27);
+
+        //выввод сотрудников старше 40ка
         for (Employee emp:employees){
             if (emp.age>40){
                 emp.printInfoEmployee();
@@ -19,6 +22,6 @@ public class Main {
         }
     //создание парка и вывод информации
         Park park=new Park("carousel");
-        park.createParkInfo();
+        park.createParkInfo("9:00-18:00", "for child", 250);
     }
 }

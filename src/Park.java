@@ -5,20 +5,24 @@ public class Park {
         this.name = name;
     }
 
-    void createParkInfo(){
-        ParkInfo info=new ParkInfo("9:00-18:00", "for child", 250);
-        System.out.println("working hours: "+info.workingHours+"\ngeneral information: "+info.generalInformation+
+    //метод создающий ифнормацию по внутреннему классу ParkInfo и выводящий ее
+    void createParkInfo(String workingHours, String generalInformation, int cost){
+        ParkInfo info=new ParkInfo(workingHours, generalInformation,cost);
+        System.out.println("name: "+name+"\nworking hours: "+info.workingHours+"\ngeneral information: "+info.generalInformation+
                 "\ncost: "+info.cost);
     }
+    //внутренний класс хранящий информацию об аттракционах
      class ParkInfo{
         String workingHours;
         String generalInformation;
         int cost;
+
 
         public ParkInfo(String workingHours, String generalInformation, int cost) {
             this.workingHours = workingHours;
             this.generalInformation = generalInformation;
             this.cost = cost;
         }
+
     }
 }

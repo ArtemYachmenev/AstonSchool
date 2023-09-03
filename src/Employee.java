@@ -1,3 +1,4 @@
+//класс работника
 public class Employee {
     String lastLame, firstName, patronymic, position, email;
     int phone, salary, age;
@@ -13,12 +14,13 @@ public class Employee {
         this.age = age;
     }
 
+    //переопределяем строковой вывод информации
     @Override
     public String toString(){
-        return String.format("Фамилия: %s \t Имя: %s \t Отчество: %s \t Должность: %s \n Email: %s \t Номер телефона: %d \n Зарплата: %d \t Возраст: %d \n",
+        return String.format("Фамилия: %s \t Имя: %s \t Отчество: %s \t Должность: %s \nEmail: %s \t Номер телефона: %d \nЗарплата: %d \t Возраст: %d \n",
                 lastLame, firstName, patronymic, position, email, phone, salary, age);}
 
-    // это метод вывода в консоль (как по заданию)
+    // вывод в консоль
     public void printInfoEmployee() {
         System.out.println(this);
 
