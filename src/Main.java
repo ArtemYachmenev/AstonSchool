@@ -21,7 +21,7 @@ public class Main {
     public static void checkSumSign(){
         int a=1, b=2;
         int sum=a+b;
-        if (sum>0){
+        if (sum>=0){
             System.out.println("Сумма положительная");
         }
         else {
