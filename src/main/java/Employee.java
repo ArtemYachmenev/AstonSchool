@@ -1,4 +1,6 @@
 //класс работника
+package main.java;
+
 public class Employee {
     String lastLame, firstName, patronymic, position, email;
     int phone, salary, age;

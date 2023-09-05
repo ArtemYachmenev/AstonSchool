@@ -1,3 +1,5 @@
+package main.java;
+
 public class Main {
     public static void main(String[] args) {
         //создание массива, добавление работников в него
