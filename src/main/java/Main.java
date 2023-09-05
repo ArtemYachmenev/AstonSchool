@@ -1,17 +1,15 @@
+package main.java;
+
 public class Main {
     public static void main(String[] args) {
         //1
         printThreeWords();
-        System.out.println("");
         //2
         checkSumSign();
-        System.out.println("");
         //3
         printColor();
-        System.out.println("");
         //4
         compareNumbers();
-        System.out.println("");
 
     }
     public static void printThreeWords(){
