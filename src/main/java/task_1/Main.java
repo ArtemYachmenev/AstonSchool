@@ -4,7 +4,7 @@ public class Main {
     public static void main(String[] args) {
         //проверка вывода счетчика животных, кошек и собак
         //Исходя из условия задачи решил что предельные дистанции начинаются с 200, 500, 10
-        // (т.е. от 0 до 199, 499 и 9 возможные дистанции для животных которые эни могут преодолеть)
+        // (т.е. от 0 до 199, 499 и 9 крайние возможные дистанции для животных которые эни могут преодолеть)
         Animal slon=new Animal();
         Animal belka=new Animal();
         Dog bulldog=new Dog("Гоша");
@@ -12,15 +12,14 @@ public class Main {
         Cat meykun=new Cat("Цири",200);
         Cat asian=new Cat("Геральт",250);
         System.out.println("всего животных: "+Animal.getCountAnimal());
-        System.out.println("всего кошечек: "+Cat.getCountCat());
-        System.out.println("всего собачек: "+Dog.getCountDog());
+        System.out.println("всего кошек: "+Cat.getCountCat());
+        System.out.println("всего собак: "+Dog.getCountDog());
 
         //проверка методов кошек и собак
         bulldog.run(400);
         bulldog.swim(200);
         siam.run(300);
         siam.swim(0);
-
 
         //создание тарелки
         Plate plate=new Plate(200);
