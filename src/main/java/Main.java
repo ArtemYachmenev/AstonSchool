@@ -3,42 +3,31 @@ package main.java;
 public class Main {
     public static void main(String[] args) {
 
-         String[] header=new String[2];
+        //создание заголовка с набором столбцов
+         String[] header=new String[3];
          header[0]="value 1";
-        header[1]="value 2";
-//        header[2]="value 3";
-//         int[][] mas=new int[2][2];
+         header[1]="value 2";
+         header[2]="value 3";
+
+        //счетчик по которому создается двумерный массив
         int count=1;
-//         for (int i=0;i< mas.length;i++){
-//             for (int j=0;j< mas.length;j++){
-//                 mas[i][j]=count;
-//                 count++;
-//                 System.out.print(mas[i][j]);
-//             }
-//
-//         }
+        int[][] mas=new int[3][3];
 
-
-        int[][] mas=new int[4][5];
-//строка
-
+        //создаем для примера двумерный массив который потом запишется в файл вместе с заголовком
+        //строка двумерного массива
         for(int i = 0; i < mas.length; i++) {
-            //столбец
-            for (int j = 0; j < mas.length; j++) {
-
-
-
+            //столбец двумерного массива
+            for (int j = 0; j < mas[i].length; j++) {
                 mas[i][j]=count;
                 count++;
-              //  System.out.print(mas[i][j]);
             }
-            System.out.println("");
         }
+        //создание класса AppData, сохранение в файл и его чтение
+        //файл .csv находится в директории myDir
         AppData data=new AppData(header, mas);
-       // data.read();
-        //System.out.println(data);
-        // data.save(data);
-        String convertedToString = String.valueOf(data);
-        System.out.println(convertedToString.toString());
+        data.save(data);
+        System.out.println("read:");
+        data.read();
+
     }
 }
