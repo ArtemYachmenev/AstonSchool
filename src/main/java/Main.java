@@ -1,9 +1,6 @@
 package main.java;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -22,31 +19,59 @@ public class Main {
         System.out.println(mas);
         // для удобства представлен массив отфильтрованный (только четные числа)
         mas=mas.stream().filter(a->a%2==0).collect(Collectors.toList());
-        System.out.println(mas);
+        System.out.println("массив отфильтрованный (только четные числа): "+mas);
         //количество четных чисел
         long count= mas.stream().filter(a->a%2==0).count();
-        System.out.println(count);
+        System.out.println("количество четных чисел: "+count);
 
         //2
         List<String> strings=Arrays.asList("Highload","High", "Load", "Highload");
         //сколько раз объект «High» встречается
         long countHigh= strings.stream().filter(a->a.equals("High")).count();
-        System.out.println(countHigh);
+        System.out.println("сколько раз объект «High» встречается: "+countHigh);
         //какой элемент в коллекции находится на первом месте
-        System.out.println(strings.stream().findFirst().orElse("0"));
+        System.out.println("какой элемент в коллекции находится на первом месте: "+strings.stream().findFirst().orElse("0"));
         //вернуть последний элемент
-        System.out.println(strings.stream().reduce((a, b) -> b).orElse("0"));
+        System.out.println("последний элемент: "+strings.stream().reduce((a, b) -> b).orElse("0"));
 
         //3
         List<String> words=Arrays.asList("f10","f15", "f2", "f4", "f4");
         //сортировка в алфавитном порядке
         words=words.stream().sorted().collect(Collectors.toList());
-        System.out.println(words);
+        System.out.println("отсортированная по строкам коллекция: "+words);
         //добавление в массив
         String[] masWords= words.toArray(size -> new String[size]);
-        System.out.println(Arrays.toString(masWords));
+        System.out.println("вложенная в массив коллекция: "+Arrays.toString(masWords));
 
         //4
+        Collection<Student> students=Arrays.asList(new Student("Дмитрий",17, Gender.MAN),
+                new Student("Максим",20, Gender.MAN ),
+                new Student("Екатерина", 20, Gender.WOMAN),
+                new Student("Михаил", 20, Gender.MAN));
+        //средний возраст студентов мужского пола
+        double man= students.stream().filter(a-> a.gender.equals(Gender.MAN)).mapToInt(a->a.getAge()).average().getAsDouble();
+        System.out.println("Средний возраст мужчин: "+man);
+        //Кому из студентов грозит получение повестки
+        List<String> name=students.stream().filter(a-> a.getAge()>=18 && a.getAge()<=27 && a.getGender()==Gender.MAN).map(a->a.getName()).collect(Collectors.toList());
+        System.out.println("имена призывников: "+name);
+
+        //5
+        List<String> passwords=new ArrayList<>();
+
+        Scanner in = new Scanner(System.in);
+        System.out.print("введи пароль: ");
+        String pass= in.nextLine();
+
+        while (!pass.isEmpty()){
+            System.out.print("введи пароль: ");
+            passwords.add(pass);
+            pass=in.nextLine();
+        }
+
+        List<String> fPass=passwords.stream().filter(a->a.startsWith("f",0)).collect(Collectors.toList());
+        System.out.println("пароли начинающиеся на f: "+fPass);
+
+
 
 
     }
