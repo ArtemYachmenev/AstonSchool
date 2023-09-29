@@ -39,8 +39,9 @@ public class Cat extends Animal{
         }
         else {
             if (p.getCountFood()<foodForSatiety){
-                System.out.println("коту "+name+ " не хватило еды, дабавляем еду для другого кота");
+                System.out.println("коту "+name+ " не хватило еды, дабавляем еду");
                 p.addFood(foodForSatiety);
+                this.eatFood(p);
 
             }
             else {
