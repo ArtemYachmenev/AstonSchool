@@ -38,8 +38,8 @@ public class PhoneNumberGuide {
         // уникальный ключ номер тел., значение фамилия
 
         if (phoneBook.containsKey(number)) {
-            String numbers = phoneBook.get(number);
-            if (surname.contains(numbers)) {
+            String surnameOnMap = phoneBook.get(number);
+            if (surname.contains(surnameOnMap)) {
                 System.out.println("Номер " + number + " уже есть для " + surname);
             } else {
                 phoneBook.put(number, surname);
