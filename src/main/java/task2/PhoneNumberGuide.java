@@ -3,38 +3,52 @@ package main.java.task2;
 import java.util.*;
 
 public class PhoneNumberGuide {
-    //каждая фамилия хранит список номеров
-    private Map <String, List<String>> phoneBook;
+    //каждая номер хранит фамилии
+    private Map<Integer, String> phoneBook;
+
 
     public PhoneNumberGuide() {
         this.phoneBook = new HashMap<>();
     }
 
+    //получаем номера фамилии-всех однофимильцев
+    public void get(String surname) {
 
-    //получаем номера фамилии
-    public List<String> get(String surname){
-        if(phoneBook.containsKey(surname)){
-            return phoneBook.get(surname);
-        } else {
-            System.out.println("В книге нет номера для "+ surname);
-            return new ArrayList<>();
+        boolean exist=false;
+        if (!phoneBook.isEmpty()) {
+            for (Map.Entry<Integer, String> entry : phoneBook.entrySet()) {
+                Integer key = entry.getKey();
+                String value = entry.getValue();
+
+                if (value.equals(surname)) {
+                    System.out.println(value + ": " + key);
+                    exist=true;
+                }
+            }
         }
+        if (exist==false){
+            System.out.println("В книге нет номера для " + surname);
+        }
+
     }
 
-    public void add(String surname, String number){
-        //если тел. книга хранит фамилию, то получаем этот номер
-        //
-        if(phoneBook.containsKey(surname)){
-            List<String> numbers = phoneBook.get(surname);
-            if(!numbers.contains(number)){
-                numbers.add(number);
-                System.out.println("Номер "+number+" добавлен для "+ surname);
+    public void add(String surname, Integer number) {
+
+        //у однофамильцев свой номер телефона, фамилии не суммируются в один ключ
+        // уникальный ключ номер тел., значение фамилия
+
+        if (phoneBook.containsKey(number)) {
+            String numbers = phoneBook.get(number);
+            if (surname.contains(numbers)) {
+                System.out.println("Номер " + number + " уже есть для " + surname);
             } else {
-                System.out.println("Номер "+number+" уже есть для "+ surname);
+                phoneBook.put(number, surname);
+                System.out.println("Номер " + number + " добавлен для " + surname);
             }
         } else {
-            phoneBook.put(surname, new ArrayList<>(Arrays.asList(number)));
-            System.out.println("Номер "+number+" добавлен для "+ surname);
+            phoneBook.put(number, surname);
+            System.out.println("Номер " + number + " добавлен для " + surname);
         }
     }
 }
+
