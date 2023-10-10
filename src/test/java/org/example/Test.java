@@ -17,7 +17,7 @@ class Test {
 
     //перед всеми тестами устанавливаем свойства драйвера
     @BeforeAll
-    static void setupAll(){
+    static void setProperty(){
         System.setProperty("webdriver.chrome.driver","src/main/resources/chromedriver-win64/chromedriver.exe");
 
     }
@@ -26,7 +26,7 @@ class Test {
     //разворачиваем окно хрома,
     //переходим на сайт мтс, ставим неявное ожидание на 5 секунд для загрузки страницы
     @BeforeEach
-    void setup(){
+    void setActions(){
         driver=new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("https://www.mts.by/");
