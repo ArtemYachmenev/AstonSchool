@@ -17,28 +17,11 @@ public class Test {
     private static WebDriver driver;
     private WebDriverWait wait;
 
-
-    //метод ищет элемент с помощью xpath
-    private WebElement sourseXpath(WebDriver driver, String s){
-        return driver.findElement(By.xpath(s));
-    }
-
-    //метод вставляет в поиск тега label текст
-    private String textToLabel(String s){
-        return "//label[text()=".concat("'").concat(s).concat("'").concat("]");
-    }
-
-    //метод вставляет в поиск тега button текст
-    private String textToButton(String s) {
-        return "//button[text()=".concat("'").concat(s).concat("'").concat("]");
-    }
-
     //перед всеми тестами устанавливаем свойства драйвера
     @BeforeAll
     static void setupAll(){
         System.setProperty("webdriver.chrome.driver","src/main/resources/chromedriver-win64/chromedriver.exe");
-        //WebDriver driver=new ChromeDriver();
-       // WebDriverManager.chromedriver().setup();
+
     }
 
     //перед каждым тестом устанавливаем драйвер,
@@ -65,6 +48,22 @@ public class Test {
     @AfterEach
     void teardown(){
         driver.quit();
+    }
+
+
+    //метод ищет элемент с помощью xpath
+    private WebElement sourseXpath(WebDriver driver, String s){
+        return driver.findElement(By.xpath(s));
+    }
+
+    //метод вставляет в поиск тега button текст
+    private String textToButton(String s) {
+        return "//button[text()=".concat("'").concat(s).concat("'").concat("]");
+    }
+
+    //метод вставляет в поиск тега label текст
+    private String textToLabel(String s){
+        return "//label[text()=".concat("'").concat(s).concat("'").concat("]");
     }
 
     //берем сумму из всплывшего окна и сравниваем ее с ожидающей суммой
