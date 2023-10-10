@@ -46,7 +46,7 @@ public class Test {
 
     //после каждого теста закрываем драйвер
     @AfterEach
-    void teardown(){
+    void closeDriver(){
         driver.quit();
     }
 
