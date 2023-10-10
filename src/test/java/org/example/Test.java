@@ -40,7 +40,7 @@ public class Test {
         WebElement nextButton = sourseXpath(driver, textToButton("Продолжить"));
         phone.sendKeys("297777777");
         summa.sendKeys("77");
-        email.sendKeys("test@test.by");
+        email.sendKeys("artem@pricolovich.aston");
         nextButton.click();
     }
 
