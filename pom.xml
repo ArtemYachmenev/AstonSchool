@@ -15,7 +15,7 @@
 
         <aspectj.version>1.8.10</aspectj.version>
         <maven-surefire-plugin.version>2.20</maven-surefire-plugin.version>
-        <allure-testing.version>2.6.0</allure-testing.version>
+        <allure-testing.version>2.21.0</allure-testing.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -44,6 +44,12 @@
             <artifactId>testng</artifactId>
             <version>7.7.0</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.7.0</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

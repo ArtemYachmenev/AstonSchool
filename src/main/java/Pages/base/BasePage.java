@@ -1,4 +1,4 @@
-package Pages;
+package Pages.base;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,6 +12,7 @@ import static constants.Constant.TimeoutVariable.IMPLICIT_WAIT;
 
 public class BasePage {
     protected WebDriver driver;
+
     public BasePage(WebDriver driver){
         this.driver=driver;
     }

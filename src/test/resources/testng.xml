@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.8.dtd">
+<suite name="All Test Suite">
+    <test  name="C:qa:Demo">
+        <classes>
+            <class name="tests.addProductsAndGoToBasket.AddProductsAndGoToBasket"/>
+        </classes>
+    </test>
+</suite>

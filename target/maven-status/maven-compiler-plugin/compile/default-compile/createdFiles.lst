@@ -1,0 +1,9 @@
+constants\Constant.class
+org\example\Main.class
+Pages\base\BasePage.class
+Pages\basket\BasketPage.class
+common\CommonActions.class
+common\Config.class
+constants\Constant$TimeoutVariable.class
+constants\Constant$Url.class
+Pages\wildBerries_home\WildBerriesHomePage.class
