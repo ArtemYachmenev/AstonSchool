@@ -78,6 +78,9 @@ public class WildBerriesHomePage extends BasePage {
             sum=waitElementIsVisible(driver.findElement(By.xpath(xpath+"//p[@class='product-card__price price']"))).getText();
             firstIndex=sum.indexOf("₽");
             sum=sum.substring(0,firstIndex-1).replace(" ","");
+            if (sum.startsWith("o")) {
+                sum=sum.substring(2);
+            }
 
             PRODUCTS_INFO.put(productName,sum);
 
