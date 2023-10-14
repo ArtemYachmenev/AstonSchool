@@ -1,5 +1,7 @@
 package constants;
 
+import java.util.HashMap;
+
 public class Constant {
     public static class TimeoutVariable{
         public static final int IMPLICIT_WAIT=4;
@@ -9,4 +11,6 @@ public class Constant {
     public static class Url{
         public static final String HOME_PAGE="https://www.wildberries.ru/";
     }
+
+
 }
