@@ -1,4 +1,4 @@
-# Created at 2023-10-14T02:21:18.964
+# Created at 2023-10-14T13:03:32.620
 Boot Manifest-JAR contains absolute paths in classpath 'A:\java\idea progects\project intellij\Lesson_13\target\test-classes'
 Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
 'other' has different root

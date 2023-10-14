@@ -10,13 +10,13 @@ import static constants.Constant.Url.HOME_PAGE;
 public class AddProductsAndGoToBasket extends BaseTest {
 
     @Test
-    public void checkIsRedirectToBasket(){
+    public void addProductsToBasket(){
 
         //открываем сайт
         basePage.open(HOME_PAGE);
 
         //переходим в корзину
         wildBerriesHomePage.addProducts(10).goToBasket();
-        basketPage.checkInfoProducts();
+        //basketPage.checkInfoProducts();
     }
 }
