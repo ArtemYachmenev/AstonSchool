@@ -22,46 +22,41 @@ public class WildBerriesHomePage extends BasePage {
 
     //добавляем их в корзину, пусть будет 10ть штук
     //наводимся на карточку, тыкаем добавить в корзину
-    public WildBerriesHomePage  addProducts(int count){
-        //обнуляем переменуую
-
+    public WildBerriesHomePage addProductsOnMap(){
+        //обнуляем переменную
+        PRODUCTS_INFO.clear();
         //берем в листы карточек
 
         // почему то выкидывает ошибку ожидания видимости продуктов
        // WebDriverWait wait= new WebDriverWait(driver, Duration.ofSeconds(8));
         // List<WebElement> listProducts = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
         // (By.xpath("/div[@class='main-page__goods j-main-page-block goods goods--1 j-goods-wrapper  j-goods-wrapper-hits']//div[@class='goods__list']//article\\n"))));
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            Thread.sleep(5000);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
         List<WebElement> listProducts=driver.findElements(By.xpath("//div[@class='main-page__goods j-main-page-block goods goods--1 j-goods-wrapper  j-goods-wrapper-hits']//div[@class='goods__list']//article\n"));
         Actions actions=new Actions(driver);
 
+        //объявляем переменные для выцепления данных о товарах и прочих манипуляций
         String dataXpath;
         int firstIndex;
         int lastIndex;
         WebElement element;
         String productName;
         String sum;
-
         int allSum=0;
 
-        //если мы задаем количество товаров и их больше чем товаров реальных (взятых)
-        //то кол-во товаров равно количеству взятых товаров
-        if (count> listProducts.size()){
-            count=listProducts.size();
-        }
         //перебираем элементы
-        for (int i=1;i<=count;i++){
+        for (int i=1;i<= listProducts.size();i++){
             //выуживаем xpath каждого элемента
             dataXpath= String.valueOf(listProducts.get(i-1));
             firstIndex=dataXpath.indexOf("/");
             lastIndex=dataXpath.lastIndexOf("]");
             String xpath=dataXpath.substring(firstIndex,lastIndex)+"["+i+"]";
             //добавляем элементы в корзину
-            System.out.println(xpath);
+            //System.out.println(xpath);
             element=driver.findElement(By.xpath(xpath));
             actions.moveToElement(element)
                     .click(driver.findElement(By.xpath(xpath+"//a[@class='product-card__add-basket j-add-to-basket btn-main-sm']"))).build().perform();
@@ -74,25 +69,27 @@ public class WildBerriesHomePage extends BasePage {
             catch (Exception e){
 
             }
-            System.out.println(driver.findElement(By.xpath(xpath)).getText().trim());
-//div[@class='main-page__goods j-main-page-block goods goods--1 j-goods-wrapper  j-goods-wrapper-hits']//div[@class='goods__list']//article[1]
-// ins[@class='price__lower-price']
+
             //выуживаем название товара, его сумму
             productName=driver.findElement(By.xpath(xpath+"// span[@class='product-card__name']")).getText();
             productName=productName.substring(2);
-            sum=driver.findElement(By.xpath(xpath+"// ins[@class='price__lower-price']")).getText();
-            sum=sum.substring(0,sum.length()-2);
+
+            //sum=waitElementIsVisible(driver.findElement(By.xpath(xpath+"// ins[@class='price__lower-price']"))).getText();
+            sum=waitElementIsVisible(driver.findElement(By.xpath(xpath+"//p[@class='product-card__price price']"))).getText();
+            firstIndex=sum.indexOf("₽");
+            sum=sum.substring(0,firstIndex-1).replace(" ","");
 
             PRODUCTS_INFO.put(productName,sum);
 
             //общая сумма
-            allSum+=Integer.valueOf(sum);
+            allSum+=Integer.parseInt(sum);
         }
         //кладем общую сумму и количество товара
-        PRODUCTS_INFO.put("allSum", String.valueOf(allSum));
+        PRODUCTS_INFO.put("allSum", String.valueOf(allSum).replace(" ",""));
         PRODUCTS_INFO.put("allCount",String.valueOf(listProducts.size()));
 
         //проверяем есть ли значок добавления в корзину товаров (цифра над корзиной)
+        //если да то записываем это (товары добавлены)
         try {
             driver.findElement(By.xpath("//span[@class='navbar-pc__notify']")).isEnabled();
             CORRECT_COMPLETION=true;
@@ -107,6 +104,7 @@ public class WildBerriesHomePage extends BasePage {
         By basket=By.xpath("//div[@class='navbar-pc__item j-item-basket']//a");
         WebElement basketEl=driver.findElement(basket);
         waitElementIsVisible(basketEl).click();
+
         return this;
     }
 }

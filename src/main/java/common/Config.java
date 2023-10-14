@@ -14,5 +14,10 @@ public class Config {
     public static boolean CORRECT_COMPLETION=false;
 
     //храним данные для сравнения названия товаров, их количества, цен каждого товара в корзине и общей суммы товаров
-    public static HashMap<String,String> PRODUCTS_INFO;
+    //который взяли на главной странице
+    public static HashMap<String,String> PRODUCTS_INFO=new HashMap<>();
+    //храним данные для сравнения названия товаров, их количества, цен каждого товара в корзине и общей суммы товаров
+    //который взяли в корзине
+    public static HashMap<String,String> PRODUCTS_IN_BASKET_INFO=new HashMap<>();
+
 }
