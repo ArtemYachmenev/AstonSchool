@@ -31,7 +31,7 @@ class TestPostman {
     //тестируем метод гет
     //передаем /get?foo1=bar1&foo2=bar2, сравниваем элементы foo1 и foo2 со значениями внутри них
     @org.junit.jupiter.api.Test
-    void get(){
+    void getTest(){
         given().log().body().when().get("/get?foo1=bar1&foo2=bar2")
                 .then().log().all().body("args.foo1",equalTo("bar1")).body("args.foo2",equalTo("bar2"));
     }
@@ -39,7 +39,7 @@ class TestPostman {
     //тестируем метод post
     //отправляем пустой /post, получаем пустой ответ
     @Test
-    void post(){
+    void postTest(){
         given().log().body().when().post("/post").then().log().all();
     }
 
@@ -50,7 +50,7 @@ class TestPostman {
     //вообще изначально в классах постмена были объекты obj1 и obj2, но с ними тест не проходил
     //пришлось изменить все на foo1 и foo2. Это особенность json'a?
     @Test
-    void dataPost(){
+    void dataPostTest(){
         RequestEchoPostman requestEchoPostman = new RequestEchoPostman("bar1", "bar2");
         ResponseEchoPostman responseEchoPostman = given().body(requestEchoPostman)
                 .when().post("/post").then()
@@ -68,19 +68,19 @@ class TestPostman {
 
     //передаем пустой запрос на сервер
     @Test
-    void put(){
+    void putTest(){
         given().log().body().when().put("/put").then();
     }
 
     //обновляем ресурсы на сервере
     @Test
-    void patch(){
+    void patchTest(){
         given().log().body().when().patch("/patch").then();
     }
 
     //удаляем ресурсы на сервере
     @Test
-    void delete(){
+    void deleteTest(){
         given().log().body().when().delete("/delete").then();
     }
 
