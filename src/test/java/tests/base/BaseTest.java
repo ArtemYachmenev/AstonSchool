@@ -4,16 +4,13 @@ import Pages.base.BasePage;
 import Pages.basket.BasketPage;
 import Pages.wildBerries_home.WildBerriesHomePage;
 import common.CommonActions;
-import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.Test;
 
-import java.util.List;
 import java.util.Map;
 
 import static common.Config.*;
@@ -48,13 +45,13 @@ public class BaseTest {
 
     //добавление товаров в корзину
     @Test (priority = 1)
-    public void addProductsToBasket(){
+    public void addProductsToBasketTest(){
 
         //открываем сайт
         basePage.open(HOME_PAGE);
 
-        //переходим в корзину
-        wildBerriesHomePage.addProductsOnMap();
+        //переходим в корзину выбираем 7 вещей
+        wildBerriesHomePage.addProductsOnMap(7);
         Assert.assertEquals(CORRECT_COMPLETION,true);
 
     }
@@ -62,9 +59,9 @@ public class BaseTest {
     //зависимый тест от addProductsToBasket
     //переключение на корзину
     //сравнение названий товаров, их количества, цен каждого товара в корзине и общей суммы товаров
-    @org.testng.annotations.Test (dependsOnMethods = {"addProductsToBasket"},
-    alwaysRun = true)
-    public void checkToBasketAndCheckProducts(){
+    @org.testng.annotations.Test (dependsOnMethods = {"addProductsToBasketTest"},
+            alwaysRun = true)
+    public void checkToBasketAndCheckProductsTest(){
         //открываем корзину
         wildBerriesHomePage.goToBasket();
 
@@ -76,24 +73,24 @@ public class BaseTest {
         //подскажите пожалуйста, что можно сделать?
         //пытался считывать ins где цена лежит отдельно, и ставить на паузу/ожидание поток
         //не помогло :/
-        //посмотрел прогоны тестов, не считывает конкретные товары типа памперсов, вла салфетки, подушки и тп.
+        //посмотрел прогоны тестов, не считывает конкретные товары типа памперсов, вла салфетки, подушки, пудры и тп.
 
         //пробегаем PRODUCTS_IN_BASKET_INFO сравниваем его с PRODUCTS_INFO
         for (Map.Entry<String, String> set : PRODUCTS_IN_BASKET_INFO.entrySet()) {
             if (PRODUCTS_IN_BASKET_INFO!=null&&PRODUCTS_INFO!=null)
             {
-            keyBasketProduct = set.getKey();
+                keyBasketProduct = set.getKey();
 
                 //если названия-ключи равны то сравниваем содержимое (выходи ключ=ключ, значение=значению)
                 if (PRODUCTS_IN_BASKET_INFO.get(keyBasketProduct).equals(PRODUCTS_IN_BASKET_INFO.get(keyBasketProduct))){
                     System.out.println(keyBasketProduct+" "+PRODUCTS_INFO.get(keyBasketProduct));
-                Assert.assertEquals(PRODUCTS_IN_BASKET_INFO.get(keyBasketProduct), PRODUCTS_INFO.get(keyBasketProduct));
+                    Assert.assertEquals(PRODUCTS_IN_BASKET_INFO.get(keyBasketProduct), PRODUCTS_INFO.get(keyBasketProduct));
                 }
             }
 
 
-            }
         }
     }
+}
 
 
