@@ -28,7 +28,7 @@ class Test {
 
         try {
             driver = new AndroidDriver<>(new
-                    URL("http://127.0.0.1:4723/wd/hub"),capabilities);
+                    URL("http://127.0.0.1:4723/wd/hub"),DeviceCharacteristics.getAndroidCharacteristics());
             driver.manage().timeouts().implicitlyWait(10,
                     TimeUnit.SECONDS);
             calculatorDisplay =new MiuiCalculatorDisplay(driver);
