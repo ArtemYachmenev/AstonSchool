@@ -7,17 +7,17 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 //элементы калькулятора с которыми работаем
 public class MiuiCalculatorElements {
-    @FindBy(id = "com.miui.calculator:id/btn_plus_s")
+    @FindBy(id = "com.miui.calculator:id/op_add")
     private AndroidElement plus;
-    @FindBy(id = "com.miui.calculator:id/btn_minus_s")
+    @FindBy(id = "com.miui.calculator:id/op_sub")
     private AndroidElement minus;
-    @FindBy(id = "com.miui.calculator:id/btn_mul_s")
+    @FindBy(id = "com.miui.calculator:id/op_mul")
     private AndroidElement multipl;
-    @FindBy(id = "com.miui.calculator:id/btn_div_s")
+    @FindBy(id = "com.miui.calculator:id/op_div")
     private AndroidElement divide;
-    @FindBy(id = "com.miui.calculator:id/btn_3_s")
+    @FindBy(id = "com.miui.calculator:id/digit_3")
     private AndroidElement three;
-    @FindBy(id = "com.miui.calculator:id/btn_9_s")
+    @FindBy(id = "com.miui.calculator:id/digit_9")
     private AndroidElement nine;
     @FindBy(id = "com.miui.calculator:id/btn_equal_s")
     private AndroidElement equally;
