@@ -1,5 +1,6 @@
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
+
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -12,8 +13,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
-@Epic("Test miui calculator")
-@Feature("Calculations")
+@Epic("miui calculator")
+@Feature("test functions")
 class Test {
         static AndroidDriver<AndroidElement> driver=null;
         private static MiuiCalculatorDisplay calculatorDisplay;
@@ -50,7 +51,6 @@ class Test {
     }
 
     //сложение
-    @Story("plus")
     @org.junit.jupiter.api.Test
     void plusTest() {
         calculatorDisplay.clear();
