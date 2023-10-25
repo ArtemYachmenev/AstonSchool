@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MainTest {
 
-    //объясвялем n, k. n-число, которое передаетчя в метод
-    //getFactorial, k-присваиват результат в этом методе
+    //объявляем positive, k. negative negative и -число, которое передаетчя в метод
+    //getFactorial, k и message-присваиват результат в этом методе
    static int positive,k;
    static Object negative, message;
     @BeforeAll
