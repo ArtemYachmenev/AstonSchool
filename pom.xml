@@ -75,6 +75,14 @@
 
 
     <build>
+
+        <resources>
+            <resource>
+                <directory>src/test/resourses</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -94,7 +102,6 @@
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                     </argLine>
                     <systemProperties>
-<!--                        не помогает-->
                         <property>
                             <name>allure.results.directory</name>
                             <value>${basedir}/target/allure-results</value>
@@ -137,6 +144,10 @@
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
                 <version>${allure-maven.version}</version>
+                <configuration>
+                    <resultsDirectory>${basedir}/target/allure-results</resultsDirectory>
+                    <reportDirectory>${basedir}/target/allure-reports</reportDirectory>
+                </configuration>
             </plugin>
         </plugins>
     </build>

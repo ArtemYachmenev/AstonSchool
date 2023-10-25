@@ -51,6 +51,7 @@ class Test {
     }
 
     //сложение
+    @Story("plus")
     @org.junit.jupiter.api.Test
     void plusTest() {
         calculatorDisplay.clear();
