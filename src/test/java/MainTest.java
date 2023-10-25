@@ -1,8 +1,5 @@
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import javax.management.ConstructorParameters;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -10,28 +7,42 @@ class MainTest {
 
     //объясвялем n, k. n-число, которое передаетчя в метод
     //getFactorial, k-присваиват результат в этом методе
-   static int n,k;
+   static int positive,k;
+   static Object negative, message;
     @BeforeAll
     static void prepareData() {
-        n = 5;
+        positive = 5;
+        negative = "dfgdfg";
     }
 
     //проверяем факториал 5, он равен 120
     //проверяем в мейне что в метод getFactorial передал в переменную к результат 120
+    //позитивный тест
     @Test
-    void main() {
-        getFactorial();
+    void positiveTest() {
+        getFactorial(positive);
         assertEquals(120,k);
     }
 
-    //проверяем что в методе getFactorial результат равен 120
+    //негативный тест
     @Test
-    void getFactorial() {
+    void negativeTest() {
+        getFactorial(negative);
+        assertEquals("error, no int",message);
+    }
+
+    //проверяем что в методе getFactorial результат равен 120
+    void getFactorial(Object data) {
         int result = 1;
-        for (int i = 1; i <= n; i++) {
-            result = result * i;
+        if (!data.getClass().equals(Integer.class)){
+            message="error, no int";
         }
-        k=result;
-        assertEquals(120,result);
+        else {
+            int count = (Integer) data;
+            for (int i = 1; i <= count; i++) {
+                result = result * i;
+            }
+            k = result;
+        }
     }
 }
