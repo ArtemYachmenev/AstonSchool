@@ -81,8 +81,7 @@ class Test {
     //проверяем наличие логотипов
     @org.junit.jupiter.api.Test
     void enabledImg(){
-        //Хотел написать путь //ul[@src='https://www.mts.by/local/templates/new_design/assets/html/images/pages/index/pay/visa.svg']/li/img
-        //но он не ищется, можно это как-то исправить или по некотором атрибутам не делается поиск?
+
         List<WebElement> img=driver.findElements(By.xpath("//section//ul/li/img"));
         assertAll(() -> assertTrue(img.get(0).isDisplayed()), () -> assertTrue(img.get(1).isDisplayed()),
                 () -> assertTrue(img.get(2).isDisplayed()), () -> assertTrue(img.get(3).isDisplayed()),
@@ -92,8 +91,7 @@ class Test {
     //проверяем работу ссылки «Подробнее о сервисе»
     @org.junit.jupiter.api.Test
     void clickToLink(){
-        //поиск по этому xpath тоже не работает :/
-        // //a[@href='https://www.mts.by/help/poryadok-oplaty-i-bezopasnost-internet-platezhey/']
+
         sourseXpath(driver,"//a[text()='Подробнее о сервисе']").click();
         assertEquals("https://www.mts.by/help/poryadok-oplaty-i-bezopasnost-internet-platezhey/", driver.getCurrentUrl());
     }
@@ -112,21 +110,6 @@ class Test {
 
         //перехватываем всплывшее окно
         WebDriver frame = driver.switchTo().frame(sourseXpath(driver, "//iframe[@class='bepaid-iframe']"));
-
-
-        //ждем
-        // тут вызывал driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        // но с ним выкидывает пустое значение суммы где ожидалось полное:
-        //Expected :77.00 BYN
-        //Actual   :
-        // может я что-то не так делаю? подскажите пожалуйста в комментах по задаче
-//        try {
-//            Thread.sleep(3000);
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
-        //driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        //WebElement text=sourseXpath(frame, "//p[@class='header__payment-amount'][text()=' 77.00 BYN ']");
 
         WebElement text=(new WebDriverWait(frame,Duration.ofSeconds(3)).until(ExpectedConditions.
                 visibilityOfElementLocated(By.xpath("//p[@class='header__payment-amount'][text()=' 77.00 BYN ']"))));
