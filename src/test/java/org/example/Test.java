@@ -50,6 +50,7 @@ class Test {
         driver.get("https://www.mts.by/");
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         cookies = driver.manage().getCookies();
+        exitCookies();
         cookies.stream().forEach(c -> driver.manage().addCookie(c));
     }
 
@@ -73,7 +74,6 @@ class Test {
     //проверяем что есть блок
     @org.junit.jupiter.api.Test
     void enabledBlock(){
-        exitCookies();
         WebElement block=sourseXpath(driver,"//div[@class='col-12 col-xl-8']//h2[text()]");
         assertEquals(true,!(block.getText().equals(null)));
     }
@@ -81,7 +81,6 @@ class Test {
     //проверяем наличие логотипов
     @org.junit.jupiter.api.Test
     void enabledImg(){
-        exitCookies();
         //Хотел написать путь //ul[@src='https://www.mts.by/local/templates/new_design/assets/html/images/pages/index/pay/visa.svg']/li/img
         //но он не ищется, можно это как-то исправить или по некотором атрибутам не делается поиск?
         List<WebElement> img=driver.findElements(By.xpath("//section//ul/li/img"));
@@ -93,7 +92,6 @@ class Test {
     //проверяем работу ссылки «Подробнее о сервисе»
     @org.junit.jupiter.api.Test
     void clickToLink(){
-        exitCookies();
         //поиск по этому xpath тоже не работает :/
         // //a[@href='https://www.mts.by/help/poryadok-oplaty-i-bezopasnost-internet-platezhey/']
         sourseXpath(driver,"//a[text()='Подробнее о сервисе']").click();
@@ -103,7 +101,6 @@ class Test {
     //Заполняем поля и проверяем работу кнопки «Продолжить»
     @org.junit.jupiter.api.Test
     void fullFieldsAndClickButton(){
-        exitCookies();
         WebElement phone = sourseXpath(driver, "//*[@id=\"connection-phone\"]");
         WebElement summa = sourseXpath(driver, "//*[@id=\"connection-sum\"]");
         WebElement email = sourseXpath(driver, "//*[@id=\"connection-email\"]");
