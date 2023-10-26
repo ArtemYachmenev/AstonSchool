@@ -17,6 +17,16 @@ public class Test {
     private static WebDriver driver;
     private WebDriverWait wait;
 
+    private void exitCookies(){
+        try {
+            WebElement windowCookie= sourseXpath(driver, "//div[@Class='cookie show']//button[@class='cookie__close']");
+            windowCookie.click();
+        }
+        catch (Exception e){
+
+        }
+    }
+
     //перед всеми тестами устанавливаем свойства драйвера
     @BeforeAll
     static void setProperty(){
@@ -34,6 +44,7 @@ public class Test {
         driver.manage().window().maximize();
         driver.get("https://www.mts.by/");
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        exitCookies();
         WebElement phone = sourseXpath(driver, "//*[@id=\"connection-phone\"]");
         WebElement summa = sourseXpath(driver, "//*[@id=\"connection-sum\"]");
         WebElement email = sourseXpath(driver, "//*[@id=\"connection-email\"]");
