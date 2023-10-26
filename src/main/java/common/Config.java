@@ -8,7 +8,7 @@ public class Config {
     public static final Boolean CLEAR_COOKIES_AND_STORAGE=true;
 
     //если тру закрывает браузер
-    public static final Boolean HOLD_BROWSER_OPEN=true;
+    public static final Boolean HOLD_BROWSER_OPEN=false;
 
     //корректное завершение теста добавления в корзину товаров
     public static boolean CORRECT_COMPLETION=false;

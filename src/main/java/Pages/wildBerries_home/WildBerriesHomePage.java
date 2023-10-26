@@ -5,7 +5,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.List;
 
 
@@ -41,7 +44,23 @@ public class WildBerriesHomePage extends BasePage {
         Actions goDown=new Actions(driver);
         goDown.scrollByAmount(0,5000).build().perform();
 
-        List<WebElement> listProducts=driver.findElements(By.xpath("//div[@class='main-page__goods j-main-page-block goods goods--1 j-goods-wrapper  j-goods-wrapper-hits']//div[@class='goods__list']//article\n"));
+        //раньше были списки лучших товаров, похоже к празднику, по ним все искало но их убрали
+        //теперь пытаюсь выбрать карточки с новым интерфейсом вб
+
+
+        //было
+        //List<WebElement> listProducts=driver.findElements(By.xpath("//div[@class='main-page__goods j-main-page-block goods goods--1 j-goods-wrapper  j-goods-wrapper-hits']//div[@class='goods__list']//article\n"));
+
+        //вся таблица товаров
+        //div[@class='main-page__content']
+        //article[@class='main-page__product product-card j-product-item product-card--hoverable j-content-item'][@data-index='0']
+        //List<WebElement> listProducts=driver.findElements(By.xpath("//article[@class='main-page__product product-card j-product-item product-card--hoverable j-content-item']"));
+        ////div[@class='main-page__content']//article[@class='main-page__product product-card j-product-item product-card--hoverable j-content-item']"
+        List<WebElement> listProducts=
+                (driver.findElements(By.cssSelector("main-page__product product-card j-product-item product-card--hoverable j-content-item")));
+
+        System.out.println(listProducts.size());
+
 
         Actions actions=new Actions(driver);
 
@@ -55,15 +74,22 @@ public class WildBerriesHomePage extends BasePage {
         int allSum=0;
 
         //перебираем элементы
-        for (int i=1;i<= count;i++){
+        for (int i=0;i<= count;i++){
             //выуживаем xpath каждого элемента
-            dataXpath= String.valueOf(listProducts.get(i-1));
+            dataXpath= String.valueOf(listProducts.get(i));
             firstIndex=dataXpath.indexOf("/");
             lastIndex=dataXpath.lastIndexOf("]");
-            String xpath=dataXpath.substring(firstIndex,lastIndex)+"["+i+"]";
+            //старая строка ищущая товары
+            //String xpath=dataXpath.substring(firstIndex,lastIndex)+"["+i+"]";
+            //новая
+            String xpath=dataXpath.substring(firstIndex,lastIndex)+"[@data-index='"+i+"']";
+            System.out.println(xpath);
             //добавляем элементы в корзину
-            //System.out.println(xpath);
             element=driver.findElement(By.xpath(xpath));
+
+            //article[@class='main-page__product product-card j-product-item product-card--hoverable j-content-item'][@data-index='0']//a[@class='product-card__add-basket j-add-to-basket btn-main-sm']
+                             //"main-page__product product-card j-product-item product-card--hoverable j-content-item                                                "
+//article[@class='main-page__product product-card j-product-item product-card--hoverable j-content-item'][@data-index='0']
             actions.moveToElement(element)
                     .click(driver.findElement(By.xpath(xpath+"//a[@class='product-card__add-basket j-add-to-basket btn-main-sm']"))).build().perform();
 
