@@ -9,11 +9,12 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-
-import static common.Config.CORRECT_COMPLETION;
-import static common.Config.PRODUCTS_INFO;
+import static common.Config.*;
 
 
 public class WildBerriesHomePage extends BasePage {
@@ -32,6 +33,7 @@ public class WildBerriesHomePage extends BasePage {
 
         // почему то выкидывает ошибку ожидания видимости продуктов
        // WebDriverWait wait= new WebDriverWait(driver, Duration.ofSeconds(8));
+        //старые строки поиска
         // List<WebElement> listProducts = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
         // (By.xpath("/div[@class='main-page__goods j-main-page-block goods goods--1 j-goods-wrapper  j-goods-wrapper-hits']//div[@class='goods__list']//article\\n"))));
         try {
@@ -47,18 +49,11 @@ public class WildBerriesHomePage extends BasePage {
         //раньше были списки лучших товаров, похоже к празднику, по ним все искало но их убрали
         //теперь пытаюсь выбрать карточки с новым интерфейсом вб
 
-
         //было
         //List<WebElement> listProducts=driver.findElements(By.xpath("//div[@class='main-page__goods j-main-page-block goods goods--1 j-goods-wrapper  j-goods-wrapper-hits']//div[@class='goods__list']//article\n"));
 
-        //вся таблица товаров
-        //div[@class='main-page__content']
-        //article[@class='main-page__product product-card j-product-item product-card--hoverable j-content-item'][@data-index='0']
-        //List<WebElement> listProducts=driver.findElements(By.xpath("//article[@class='main-page__product product-card j-product-item product-card--hoverable j-content-item']"));
-        ////div[@class='main-page__content']//article[@class='main-page__product product-card j-product-item product-card--hoverable j-content-item']"
         List<WebElement> listProducts=
-                (driver.findElements(By.cssSelector("main-page__product product-card j-product-item product-card--hoverable j-content-item")));
-
+                (driver.findElements(By.xpath("//div[@class='main-page__content']//article")));
         System.out.println(listProducts.size());
 
 
@@ -74,22 +69,20 @@ public class WildBerriesHomePage extends BasePage {
         int allSum=0;
 
         //перебираем элементы
-        for (int i=0;i<= count;i++){
+        for (int i=1;i<= count;i++){
             //выуживаем xpath каждого элемента
-            dataXpath= String.valueOf(listProducts.get(i));
+            dataXpath= String.valueOf(listProducts.get(i-1));
             firstIndex=dataXpath.indexOf("/");
             lastIndex=dataXpath.lastIndexOf("]");
             //старая строка ищущая товары
             //String xpath=dataXpath.substring(firstIndex,lastIndex)+"["+i+"]";
             //новая
-            String xpath=dataXpath.substring(firstIndex,lastIndex)+"[@data-index='"+i+"']";
-            System.out.println(xpath);
+            String xpath=dataXpath.substring(firstIndex,lastIndex)+"[@data-index='"+(i-1)+"']";
+            //System.out.println(xpath);
             //добавляем элементы в корзину
             element=driver.findElement(By.xpath(xpath));
 
-            //article[@class='main-page__product product-card j-product-item product-card--hoverable j-content-item'][@data-index='0']//a[@class='product-card__add-basket j-add-to-basket btn-main-sm']
-                             //"main-page__product product-card j-product-item product-card--hoverable j-content-item                                                "
-//article[@class='main-page__product product-card j-product-item product-card--hoverable j-content-item'][@data-index='0']
+
             actions.moveToElement(element)
                     .click(driver.findElement(By.xpath(xpath+"//a[@class='product-card__add-basket j-add-to-basket btn-main-sm']"))).build().perform();
 
@@ -106,12 +99,17 @@ public class WildBerriesHomePage extends BasePage {
             productName=driver.findElement(By.xpath(xpath+"// span[@class='product-card__name']")).getText();
             productName=productName.substring(2);
 
-            //sum=waitElementIsVisible(driver.findElement(By.xpath(xpath+"// ins[@class='price__lower-price']"))).getText();
-            sum=waitElementIsVisible(driver.findElement(By.xpath(xpath+"//p[@class='product-card__price price']"))).getText();
-            //тут до низа метода пытаюсь не пропустить товары которые несут в себе цену null
-            //типа памперсов, вла салфетки, подушки, пудры и тп.
+         //   754 ₽ 1 587 ₽  430 ₽ 999 430 ₽
+            sum=waitElementIsVisible(driver.findElement(By.xpath(xpath+"// ins[@class='price__lower-price']"))).getText();
+
+
+            //новое тест по лоупрайсу
+            sum=sum.trim();
             firstIndex=sum.indexOf("₽");
+
             sum=sum.substring(0,firstIndex-1).replace(" ","");
+            //System.out.println(sum);
+
             if (sum.startsWith("o")) {
                 sum=sum.substring(2);
             }
@@ -123,16 +121,31 @@ public class WildBerriesHomePage extends BasePage {
                 PRODUCTS_INFO.put(productName, sum);
                 //общая сумма
                 allSum+=Integer.parseInt(sum);
-            }
+           }
             else {
                 //если цена null то перебираем на товар больше
                 count++;
-            }
+           }
 
 
         }
+
+        //перетасовываем то что хранится в массиве чтобы было как в баскете
+//        HashMap<String, String> myNewHashMap = new HashMap<>();
+//        ArrayList<String> list=new ArrayList<>();
+//        for(Map.Entry<String, String> entry : PRODUCTS_INFO.entrySet()){
+//           list.add(entry.getKey()+","+entry.getValue());
+//        }
+//
+//        for (int i=list.size()-1;i>=0;i--){
+//            lastIndex=list.get(i).lastIndexOf(",");
+//            myNewHashMap.put(list.get(i).substring(0,lastIndex-1),list.get(i).substring(lastIndex+1));
+//        }
+//
+//        PRODUCTS_INFO=myNewHashMap;
+
         //кладем общую сумму и количество товара
-        PRODUCTS_INFO.put("allSum", String.valueOf(allSum).replace(" ",""));
+        PRODUCTS_INFO.put("allSum", String.valueOf(allSum));
         PRODUCTS_INFO.put("allCount",String.valueOf(count));
 
         //проверяем есть ли значок добавления в корзину товаров (цифра над корзиной)
